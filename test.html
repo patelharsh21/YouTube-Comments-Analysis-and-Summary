@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Summarizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #summary {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>YouTube Video Summarizer</h1>
+    <label for="videoUrl">Enter YouTube Video URL:</label>
+    <input type="text" id="videoUrl" placeholder="https://www.youtube.com/watch?v=example" size="50">
+    <button id="summarizeBtn">Get Summary</button>
+
+    <div id="summary"></div>
+
+    <script>
+        document.getElementById('summarizeBtn').addEventListener('click', async () => {
+            const videoUrl = document.getElementById('videoUrl').value;
+            const summaryDiv = document.getElementById('summary');
+            
+            if (!videoUrl) {
+                summaryDiv.innerHTML = 'Please enter a YouTube video URL.';
+                return;
+            }
+
+            summaryDiv.innerHTML = 'Summarizing...';
+
+            try {
+                const response = await fetch('http://localhost:5000/summarize', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ url: videoUrl })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                summaryDiv.innerHTML = `<h2>Summary</h2><p>${data.summary}</p>`;
+            } catch (error) {
+                summaryDiv.innerHTML = `Error: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+// {
+//   "manifest_version": 3,
+//   "name": "YouTube Video Summarizer",
+//   "version": "1.0",
+//   "description": "Summarize comments of the YouTube video opened in the current tab",
+//   "permissions": [
+//       "activeTab",
+//       "scripting"
+//   ],
+//   "background": {
+//       "service_worker": "background.js"
+//   },
+//   "action": {
+//       "default_popup": "popup.html",
+//       "default_icon": {
+//           "16": "icon.png",
+//           "48": "icon.png",
+//           "128": "icon.png"
+//       }
+//   },
+//   "icons": {
+//       "16": "icon.png",
+//       "48": "icon.png",
+//       "128": "icon.png"
+//   }
+// }
+
+{
+  "manifest_version": 3,
+  "name": "YouTube Video Summarizer",
+  "version": "1.0",
+  "description": "Summarize comments of the YouTube video opened in the current tab",
+  "permissions": [
+      "activeTab",
+      "scripting"
+  ],
+  "background": {
+      "service_worker": "background.js"
+  },
+  "content_scripts": [
+      {
+          "matches": ["https://www.youtube.com/*"],
+          "js": ["contentScript.js"],
+          "css": ["style.css"]
+      }
+  ],
+  "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+          "16": "icon.png",
+          "48": "icon.png",
+          "128": "icon.png"
+      }
+  },
+  "icons": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+  }
+}
