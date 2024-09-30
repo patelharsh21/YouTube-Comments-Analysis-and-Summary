@@ -194,3 +194,4 @@ wrapt==1.16.0
 yarl==1.9.4
 youtube-transcript-api==0.6.2
 zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1723591248676/work
+vercel-wsgi
