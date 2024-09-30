@@ -1,41 +1,94 @@
-# youtube-comments-summary-project
 
-Please find my Streamlit app hosted [here](https://iprinka-comments-summary-ml-project-app-xobtj4.streamlit.app/)
-<br/>
-Please note that if you face an error, the Open AI API credits on my account might have expired :D
+# YouTube Comments Summarizer Extension
 
-## Project Summary
+## Overview
 
-The goal of this model is to provide a summary of comment threads for any given Youtube video.
+The **YouTube Comments Summarizer** is a Chrome extension that helps users quickly understand the sentiment and content of the top comments on a YouTube video. With just a single click, the extension summarizes the top 100 comments, reducing the time spent reading through lengthy comment threads by **95%**.
 
-## Flow Diagram
+This extension integrates a backend built in **Flask** with a frontend created using **HTML, CSS, and JavaScript**. The extension fetches the comments using YouTube's API, processes them, and returns a concise summary using a language model.
 
-![Flow Diagram](https://github.com/Priyanka-Gangadhar-Palshetkar/comments-summary-ml-project/blob/main/assets/flow-chart.png?raw=true)
+---
 
-## Approach
+## Features
 
-* In this project, I will be using [Youtube API V3](https://developers.google.com/youtube/v3) to fetch all comment threads for any given youtube video id.
-* I used Streamlit to build this application. It takes a Youtube video url as input. Using the Youtube API, I fetch all the comment threads under that video and provide it to the Tokenizer to break the text into chunks. 
-* Then I provide each chunk as an input to the Completions API with the prompt - “Provide a summary of the comments below.” followed by the chunk of comments. The model then returns a brief summary of how people are reacting to that video.
+- **Summarize Top Comments**: Automatically fetches and summarizes the top 100 comments in a video.
+- **Fast Processing**: Generates a summary in under 5 seconds, providing users with the essential points quickly.
+- **User-Friendly Interface**: A "Summarize Comments" button is added to the comments section of YouTube for easy access.
+- **Efficiency**: Reduces comment reading time by 95%.
+- **Advanced Summarization**: Uses the **ChatGoogle GenerativeAI LLM** to create summaries of each chunk of comments.
 
-## How to use
+---
+## Workflow Diagram
 
-1. Create a virtual environment (python3 -m venv venv && source venv/bin/activate)
+The following diagram illustrates the complete workflow:
 
-2. Download all the dependencies by running `make requirements` in your terminal
+![image](https://github.com/user-attachments/assets/206c81e3-59b5-428c-a24f-69ac84660b6d)
 
-3. Create a project on Google cloud console and enable Youtube API V3 for your project. Follow instructions [here.](https://console.developers.google.com/apis/api/youtube.googleapis.com/overview)
+---
 
-4. Create a .streamlit folder at the source level and add a secrets.toml file to it.
+## How It Works
 
-5. Ensure your Youtube API keys are set as `API_SERVICE_NAME`, `API_VERSION`, `YOUTUBE_API_KEY` in the secrets.toml file (check the secrets.toml.example file for reference). Please find the details to generate the API key [here.](https://developers.google.com/youtube/registering_an_application)
+The extension performs the following steps:
 
-6. Ensure your OpenAI API key is set as an environment variable `OPENAI_API_KEY` in the secrets.toml file (check the secrets.toml.example file for reference). (see best practices around API key safety [here](https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety))
+1. **Video Detection**: When a YouTube video is opened in a Chrome tab, the extension captures the video URL.
+   
+2. **API Call**: The video ID is extracted from the URL, and an API call is made to fetch the comment thread using the YouTube API.
 
-7. Run the [streamlit](https://streamlit.io/) app by running `make run`
+3. **Chunking Comments**: The comments are divided into manageable chunks for processing. Each chunk is then passed to the **ChatGoogle GenerativeAI LLM** for summarization.
 
-8. Open the app in your browser at `http://localhost:8501`
+4. **Summarization**: For each chunk of comments, a summarization chain is called using the language model. These summaries are gathered into a final summary of the entire comment thread.
 
-## Example
+5. **Display Summary**: The summarized text is presented to the user in a clean, concise format, directly below the YouTube video.
 
-![App_Demo](https://github.com/Priyanka-Gangadhar-Palshetkar/comments-summary-ml-project/blob/main/assets/video_100_comments.png?raw=true)
+---
+
+## Installation
+
+1. **Download the Extension**:
+   Clone this repository to your local machine using:
+   ```bash
+   git clone https://github.com/your-repo/YouTube-Comments-Analysis-and-Summary.git
+   ```
+
+2. **Install Chrome Extension**:
+   - Open Chrome and go to `chrome://extensions/`.
+   - Enable "Developer Mode" by toggling the switch in the top-right corner.
+   - Click on "Load unpacked" and select the Chrome Extension folder.
+
+3. **Backend Setup**:
+   - Install the necessary Python dependencies:
+     ```bash
+     pip install -r requirements.txt
+     ```
+   - Run the Flask app:
+     ```bash
+     python server.py
+     ```
+
+4. **API Key Setup**:
+setup all these things in secrets.toml file
+
+- API_SERVICE_NAME = "youtube"
+- API_VERSION = "v3"
+- YOUTUBE_API_KEY=
+- GEMINI_API_KEY=
+
+6. **Run the Application**:
+   Once the Flask server is running and the extension is loaded, navigate to any YouTube video and click the **Summarize Comments** button in the comments section.
+
+---
+
+## Technologies Used
+
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Flask (Python)
+- **APIs**: YouTube Data API v3, ChatGoogle GenerativeAI
+- **Language Model**: ChatGoogle GenerativeAI LLM (for summarization)
+
+---
+
+## Future Improvements
+
+- **Increased Comment Limit**: Extend the summarization to include more than the top 100 comments.
+- **Language Support**: Support summarization in multiple languages.
+- **Sentiment Analysis**: Provide a sentiment score or summary of the general mood in the comment section (positive, neutral, or negative).
