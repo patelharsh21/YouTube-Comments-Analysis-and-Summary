@@ -6,11 +6,10 @@ from dotenv import load_dotenv
 from googleapiclient.discovery import build
 from pytube import extract
 
-api_server_name = st.secrets["API_SERVICE_NAME"]
-api_version = st.secrets['API_VERSION']
-youtube_api_key = st.secrets['YOUTUBE_API_KEY']
-gemini_api_key = st.secrets['GEMINI_API_KEY']
-
+api_server_name = "youtube"
+api_version = "v3"
+youtube_api_key='AIzaSyAstT2ursfK9fG38Lyxp-bB1qs5pmtH4lY'
+gemini_api_key='AIzaSyC5XoIguW4qNZvx6dHmg-S1Hxh44TpaRi8'
 def start_youtube_service():
      return build(api_server_name, api_version, developerKey=youtube_api_key)
 
