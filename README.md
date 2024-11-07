@@ -86,6 +86,11 @@ setup all these things in secrets.toml file
 - **Language Model**: ChatGoogle GenerativeAI LLM (for summarization)
 
 ---
+## Screenshots 
+![image](https://github.com/user-attachments/assets/e11450ec-fcee-4721-b749-24257da07570)
+
+![image](https://github.com/user-attachments/assets/88c1032a-4e7e-4241-92f5-6f92637c22d9)
+
 
 ## Future Improvements
 
